@@ -1,7 +1,65 @@
+:root {
+  --bg-color: #f1fcff;
+  --ff-bg-color: #fff;
+  --text-color: #4a4a4a;
+  --flight-checkbox: #9abbce;
+  --flight-checkbox-checked: #2196f3;
+  --tickets-filter-border-color: #dfe5ec;
+  --ticket-table-title-color: #a0b0b9;
+}
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+}
+
+ul {
+  list-style: none;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-    'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  color: var(--text-color);
+  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-color);
+}
+
+.app {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 50px;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.main {
+  display: flex;
+  column-gap: 20px;
+}
+
+.tickets {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.ticketsList {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
 }

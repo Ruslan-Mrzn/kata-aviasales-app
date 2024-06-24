@@ -1,0 +1,55 @@
+.container {
+  min-width: 502px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border: none;
+  background-color: var(--ff-bg-color);
+}
+
+.input {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+
+  white-space: nowrap;
+
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.label {
+  min-height: 50px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  align-items: center;
+  border: 1px solid var(--tickets-filter-border-color);
+  border-right: none;
+  transition: all 0.3s ease;
+  &:first-of-type {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+  &:last-of-type {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-right: 1px solid var(--tickets-filter-border-color);
+  }
+  &:hover {
+    opacity: 0.5;
+  }
+  &:has(.input:checked) {
+    background-color: var(--flight-checkbox-checked);
+    border-color: var(--flight-checkbox-checked);
+    color: var(--ff-bg-color);
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

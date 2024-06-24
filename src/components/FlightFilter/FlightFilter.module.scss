@@ -1,0 +1,80 @@
+.container {
+  width: 232px;
+  border-radius: 5px;
+  background-color: var(--ff-bg-color);
+  padding: 20px 0 10px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font: inherit;
+  padding: 0 20px;
+  margin-bottom: 10px;
+}
+
+.filtersContainer {
+  width: 100%;
+}
+
+.text {
+  font-weight: 400;
+  font-size: 13px;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.label {
+  display: flex;
+  column-gap: 10px;
+  min-height: 40px;
+  width: 100%;
+  cursor: pointer;
+  padding: 0 20px;
+  align-items: center;
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: var(--bg-color);
+  }
+}
+
+.input {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+
+  white-space: nowrap;
+
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.input + .decor {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+  border: 1px solid var(--flight-checkbox);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.input:hover ~ .decor {
+  border: 1px solid var(--flight-checkbox-checked);
+}
+
+.input:checked + .decor {
+  border: 1px solid var(--flight-checkbox-checked);
+  background-image: url('./shape.svg');
+  background-repeat: no-repeat;
+  background-size: 12px 8px;
+  background-position: center;
+}
