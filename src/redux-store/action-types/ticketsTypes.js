@@ -1,0 +1,9 @@
+const GET_CHEAPEST = 'GET_CHEAPEST'
+const GET_FASTEST = 'GET_FASTEST'
+const GET_OPTIMAL = 'GET_OPTIMAL'
+
+export default {
+  GET_CHEAPEST,
+  GET_FASTEST,
+  GET_OPTIMAL,
+}

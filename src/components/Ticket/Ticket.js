@@ -1,43 +1,19 @@
 import React from 'react'
 
+import FlightInfo from '../FlightInfo/FlightInfo'
+
 import styles from './Ticket.module.scss'
 
-const Ticket = () => {
+const Ticket = ({ price, carrier, segments }) => {
   return (
     <li className={styles.ticket}>
       <div className={styles.header}>
-        <span className={styles.price}>13 400 Р </span>
-        <img width={100} height={40} />
+        <span className={styles.price}>{`${price.toLocaleString('ru-RU')} Р `}</span>
+        <img src={`//pics.avs.io/99/36/${carrier}.png`} />
       </div>
       <div className={styles.table}>
-        <div className={styles.forward}>
-          <div className={styles.block}>
-            <span className={styles.title}>MOW – HKT</span>
-            <span className={styles.value}>10:45 – 08:00</span>
-          </div>
-          <div className={styles.block}>
-            <span className={styles.title}>В пути</span>
-            <span className={styles.value}>21ч 15м</span>
-          </div>
-          <div className={styles.block}>
-            <span className={styles.title}>2 пересадки</span>
-            <span className={styles.value}>HKG, JNB</span>
-          </div>
-        </div>
-        <div className={styles.back}>
-          <div className={styles.block}>
-            <span className={styles.title}>MOW – HKT</span>
-            <span className={styles.value}>10:45 – 08:00</span>
-          </div>
-          <div className={styles.block}>
-            <span className={styles.title}>В пути</span>
-            <span className={styles.value}>21ч 15м</span>
-          </div>
-          <div className={styles.block}>
-            <span className={styles.title}>2 пересадки</span>
-            <span className={styles.value}>HKG, JNB</span>
-          </div>
-        </div>
+        <FlightInfo segment={segments[0]} />
+        <FlightInfo segment={segments[1]} />
       </div>
     </li>
   )

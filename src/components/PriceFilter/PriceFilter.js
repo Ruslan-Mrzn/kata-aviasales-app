@@ -1,16 +1,31 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 
-import styles from './TicketsFilter.module.scss'
+import ticketsActions from '../../redux-store/actions/ticketsActions'
+
+import styles from './PriceFilter.module.scss'
 
 const PriceFilter = () => {
+  const dispatch = useDispatch()
   return (
     <fieldset className={styles.container}>
       <label className={styles.label}>
-        <input name="tickets" type="radio" defaultChecked className={styles.input} />
+        <input
+          name="tickets"
+          type="radio"
+          onChange={() => dispatch(ticketsActions.getCheapestTickets())}
+          defaultChecked
+          className={styles.input}
+        />
         <span className={styles.text}>Самый дешевый</span>
       </label>
       <label className={styles.label}>
-        <input name="tickets" type="radio" className={styles.input} />
+        <input
+          name="tickets"
+          type="radio"
+          onChange={() => dispatch(ticketsActions.getFastestTickets())}
+          className={styles.input}
+        />
         <span className={styles.text}>Самый быстрый</span>
       </label>
       <label className={styles.label}>

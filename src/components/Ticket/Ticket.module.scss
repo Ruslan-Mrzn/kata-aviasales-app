@@ -26,25 +26,3 @@
   row-gap: 10px;
   margin-top: auto;
 }
-
-.forward,
-.back {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 40px;
-}
-
-.block {
-  display: flex;
-  flex-direction: column;
-}
-
-.title {
-  color: var(--ticket-table-title-color);
-  line-height: 1.5;
-}
-
-.value {
-  font-size: 14px;
-  line-height: 1.5;
-}
