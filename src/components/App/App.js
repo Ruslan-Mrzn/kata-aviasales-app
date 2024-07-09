@@ -1,12 +1,14 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Alert } from 'antd'
 
 import { ticketsSelectors, filtersSelectors } from '../../redux-store/selectors/index.js'
+import ticketsActions from '../../redux-store/actions/ticketsActions.js'
 import Logo from '../Logo/Logo.js'
 import FlightFilter from '../FlightFilter/FlightFilter.js'
 import PriceTabs from '../PriceFilter/PriceFilter.js'
 import Ticket from '../Ticket/Ticket.js'
+import api from '../../utils/api.js'
 
 import styles from './App.module.scss'
 
@@ -44,6 +46,31 @@ const App = () => {
     tickets = useSelector(ticketsSelectors.withThreeTransfer)
   if (!all && !withoutTransfer && !oneTransfer && !twoTransfers && !threeTransfers)
     tickets = useSelector(ticketsSelectors.noneTickets)
+
+  const dispatch = useDispatch()
+
+  const getChunk = async (searchId) => {
+    try {
+      const { tickets, stop } = await api.getTickets(searchId)
+      dispatch(ticketsActions.addTickets(tickets))
+      if (!stop) await getChunk(searchId)
+    } catch {
+      await getChunk(searchId)
+    }
+  }
+
+  const getTicketsData = async () => {
+    const { searchId } = await api.getSearchId()
+    await getChunk(searchId)
+  }
+
+  useEffect(() => {
+    try {
+      getTicketsData()
+    } catch (err) {
+      console.error(err)
+    }
+  }, [])
 
   return (
     <div className={styles.app}>

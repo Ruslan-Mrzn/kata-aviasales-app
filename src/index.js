@@ -1,19 +1,22 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
-import { legacy_createStore as createStore, combineReducers } from 'redux'
+import { legacy_createStore as createStore, combineReducers, applyMiddleware } from 'redux'
 import { composeWithDevTools } from '@redux-devtools/extension'
+import { thunk } from 'redux-thunk'
 
 import { flightReducer } from './redux-store/reducers/flightReducer'
 import { ticketsReducer } from './redux-store/reducers/ticketsReducer'
+import { loadingReducer } from './redux-store/reducers/loadingReducer'
 import App from './components/App/App'
 
 const rootReducer = combineReducers({
   tickets: ticketsReducer,
   flights: flightReducer,
+  loading: loadingReducer,
 })
 
-const store = createStore(rootReducer, composeWithDevTools())
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
