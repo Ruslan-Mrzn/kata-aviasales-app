@@ -81,9 +81,11 @@ const App = () => {
           <PriceTabs />
           <ul className={styles.ticketsList}>
             {tickets.length !== 0 ? (
-              tickets.map(({ id, price, carrier, segments }) => (
-                <Ticket key={id} price={price} carrier={carrier} segments={segments} />
-              ))
+              tickets
+                .map(({ id, price, carrier, segments }) => (
+                  <Ticket key={id} price={price} carrier={carrier} segments={segments} />
+                ))
+                .slice(0, 10)
             ) : (
               <Alert type="info" message={'Рейсов, подходящих под заданные фильтры, не найдено'} />
             )}
