@@ -157,4 +157,3 @@ export const withTwoTransferAndWithThreeTransfer = createSelector([(s) => s.tick
     )
   }),
 ])
-// export { withoutTransfer, withOneTransfer, withTwoTransfer, withThreeTransfer, withoutTransferOrWithOneTransfer }

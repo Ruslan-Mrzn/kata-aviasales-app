@@ -16,8 +16,6 @@ const PriceFilter = () => {
   const isLoading = useSelector(loadingSelectors.isLoading)
 
   sortingWorker.onmessage = (event) => {
-    console.log('hi from worker')
-    console.log(event.data.slice(0, 5))
     dispatch(ticketsActions.setTickets(event.data))
   }
 
@@ -28,7 +26,6 @@ const PriceFilter = () => {
           name="tickets"
           type="radio"
           onChange={() => {
-            //sortingWebWorker.terminate()
             sortingWorker.postMessage({ type: 'cheapest', data: tickets })
           }}
           defaultChecked
@@ -43,7 +40,6 @@ const PriceFilter = () => {
           type="radio"
           disabled={isLoading}
           onChange={() => {
-            //sortingWebWorker.terminate()
             sortingWorker.postMessage({ type: 'fastest', data: tickets })
           }}
           className={styles.input}
@@ -57,7 +53,6 @@ const PriceFilter = () => {
           disabled={isLoading}
           className={styles.input}
           onChange={() => {
-            //sortingWebWorker.terminate()
             sortingWorker.postMessage({ type: 'optimal', data: tickets })
           }}
         />
