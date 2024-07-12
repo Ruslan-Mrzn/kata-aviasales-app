@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import ticketsActions from '../../redux-store/actions/ticketsActions'
-import { ticketsSelectors } from '../../redux-store/selectors/index.js'
+import { ticketsSelectors, loadingSelectors } from '../../redux-store/selectors/index.js'
 import WorkerBuilder from '../../utils/workerBuilder.js'
 import sortingWebWorker from '../../web-workers/sortingWebWorker.js'
 
@@ -12,6 +12,8 @@ const PriceFilter = () => {
   const tickets = useSelector(ticketsSelectors.allTickets)
   const dispatch = useDispatch()
   const sortingWorker = new WorkerBuilder(sortingWebWorker)
+
+  const isLoading = useSelector(loadingSelectors.isLoading)
 
   sortingWorker.onmessage = (event) => {
     console.log('hi from worker')
@@ -30,6 +32,7 @@ const PriceFilter = () => {
             sortingWorker.postMessage({ type: 'cheapest', data: tickets })
           }}
           defaultChecked
+          disabled={isLoading}
           className={styles.input}
         />
         <span className={styles.text}>Самый дешевый</span>
@@ -38,6 +41,7 @@ const PriceFilter = () => {
         <input
           name="tickets"
           type="radio"
+          disabled={isLoading}
           onChange={() => {
             //sortingWebWorker.terminate()
             sortingWorker.postMessage({ type: 'fastest', data: tickets })
@@ -50,6 +54,7 @@ const PriceFilter = () => {
         <input
           name="tickets"
           type="radio"
+          disabled={isLoading}
           className={styles.input}
           onChange={() => {
             //sortingWebWorker.terminate()

@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Alert } from 'antd'
+import { Alert, Spin, Button } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
 
-import { ticketsSelectors, filtersSelectors } from '../../redux-store/selectors/index.js'
+import { ticketsSelectors, filtersSelectors, loadingSelectors } from '../../redux-store/selectors/index.js'
 import ticketsActions from '../../redux-store/actions/ticketsActions.js'
+import loadingActions from '../../redux-store/actions/loadingActions.js'
 import Logo from '../Logo/Logo.js'
 import FlightFilter from '../FlightFilter/FlightFilter.js'
 import PriceTabs from '../PriceFilter/PriceFilter.js'
@@ -13,6 +15,7 @@ import api from '../../utils/api.js'
 import styles from './App.module.scss'
 
 const App = () => {
+  const [ticketsForRenderCount, setTicketsForRenderCount] = useState(5)
   let tickets = []
   const { all, withoutTransfer, oneTransfer, twoTransfers, threeTransfers } = useSelector(filtersSelectors.filters)
   if (all) tickets = useSelector(ticketsSelectors.allTickets)
@@ -56,6 +59,8 @@ const App = () => {
       if (!stop) await getChunk(searchId)
     } catch {
       await getChunk(searchId)
+    } finally {
+      dispatch(loadingActions.setIsLoadingState(false))
     }
   }
 
@@ -63,6 +68,8 @@ const App = () => {
     const { searchId } = await api.getSearchId()
     await getChunk(searchId)
   }
+
+  const isLoading = useSelector(loadingSelectors.isLoading)
 
   useEffect(() => {
     try {
@@ -75,6 +82,12 @@ const App = () => {
   return (
     <div className={styles.app}>
       <Logo />
+      {isLoading && (
+        <div>
+          <Spin indicator={<LoadingOutlined spin />} />
+          Loading tickets
+        </div>
+      )}
       <div className={styles.main}>
         <FlightFilter />
         <div className={styles.tickets}>
@@ -85,9 +98,19 @@ const App = () => {
                 .map(({ id, price, carrier, segments }) => (
                   <Ticket key={id} price={price} carrier={carrier} segments={segments} />
                 ))
-                .slice(0, 10)
+                .slice(0, ticketsForRenderCount)
             ) : (
               <Alert type="info" message={'Рейсов, подходящих под заданные фильтры, не найдено'} />
+            )}
+            {tickets.length !== 0 && (
+              <Button
+                onClick={() => {
+                  setTicketsForRenderCount(ticketsForRenderCount + 5)
+                }}
+                type="primary"
+              >
+                Показать ещё
+              </Button>
             )}
           </ul>
         </div>
