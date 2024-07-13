@@ -82,13 +82,14 @@ const App = () => {
   return (
     <div className={styles.app}>
       <Logo />
-      {isLoading && (
-        <div>
-          <Spin indicator={<LoadingOutlined spin />} />
-          Loading tickets
-        </div>
-      )}
+
       <div className={styles.main}>
+        {isLoading && (
+          <div className={styles.spinnerContainer}>
+            <Spin className={styles.spinner} indicator={<LoadingOutlined spin />} />
+            Loading tickets
+          </div>
+        )}
         <FlightFilter />
         <div className={styles.tickets}>
           <PriceTabs />

@@ -52,6 +52,21 @@ body {
   display: flex;
   column-gap: 20px;
   align-items: flex-start;
+  position: relative;
+}
+
+.spinnerContainer {
+  position: absolute;
+  top: -35px;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.spinner {
+  margin-right: 25px;
 }
 
 .tickets {
